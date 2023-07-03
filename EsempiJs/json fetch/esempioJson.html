@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Card dinamiche da JSON esterno</title>
+    <style>
+        .card {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .card p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="card-container"></div> -->
+
+    <ul id = "titoli"></ul>
+
+    <script>
+        var c = document.getElementById('card-container')
+
+        fetch("./card.json") //fetch("localhost:8080/servizio") -> questo servizio restituisce una risposta
+            .then(response => response.json())
+            .then(listaCard => {
+                s = "";
+                for(elem of listaCard)
+                {
+                    s += "<li>"+elem.titolo+ " -> " + elem.contenuto + "</li>";
+                }
+
+                titoli.innerHTML = s;
+            })
+    </script>
+</body>
+
+</html>
