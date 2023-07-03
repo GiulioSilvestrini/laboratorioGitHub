@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id = "main"></div>
+    <script>
+        const apiUrl = 'https://en.wikipedia.org/w/api.php';
+
+        // Function to make the API request
+        function fetchFromWikipediaApi(title) {
+            const params = {
+                action: 'query',
+                format: 'json',
+                prop: 'extracts',
+                origin: '*',
+                exintro: '',
+                explaintext: '',
+                titles: title
+            };
+
+            const url = new URL(apiUrl);
+            url.search = new URLSearchParams(params).toString();
+
+            return fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Process the response data here
+                    console.log(data);
+                    //main.innerHTML = JSON.stringify(data, null, 2);
+                    main.innerHTML = data['query']['pages']['26909']['extract'];
+                    
+                })
+                ;
+        }
+
+        // Usage example
+        fetchFromWikipediaApi('Silvio Berlusconi');
+
+    </script>
+</body>
+
+</html>
